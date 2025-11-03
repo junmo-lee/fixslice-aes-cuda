@@ -1,4 +1,4 @@
-# CUDA AES-128 Bitslice (32-way lanes) — `TMP` + `constexpr` keys
+# CUDA AES-128 Bitslice (32-way lanes) — `TMP` + `constexpr` secret keys
 
 This repo provides:
 - A 32-way **bitsliced AES-128** implementation in CUDA
