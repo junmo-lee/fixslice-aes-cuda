@@ -1,0 +1,76 @@
+# Build directories
+build/
+cmake-build-*/
+
+# CMake files
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+*.cmake
+!CMakeLists.txt
+
+# Compiled executables
+cuda-aes-full
+cuda-aes-sbox-only
+cuda-aes-mix-only
+
+# Object files
+*.o
+*.obj
+*.lo
+*.slo
+*.ko
+*.elf
+
+# CUDA compiled files
+*.cubin
+*.fatbin
+*.ptx
+*.i
+*.ii
+
+# Libraries
+*.lib
+*.a
+*.la
+*.so
+*.so.*
+*.dylib
+*.dll
+
+# Generated files
+include/generated_rk.hpp
+
+# Input/Output data directories
+inputs/
+outputs/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+*.egg
+
+# IDE and Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.log
+
+# OS files
+Thumbs.db
+.directory

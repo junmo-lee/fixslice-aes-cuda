@@ -13,10 +13,6 @@
 #ifdef USE_GENERATED_RK
   #include "generated_rk.hpp"   // provides MyKey and rkbit_const<ROUND,SLICE>::value
 #else
-  // Define MyKey at global scope so RKBitConst can reference it
-  template<unsigned char... Ks> struct StaticKey {
-      static constexpr unsigned char data[sizeof...(Ks)] = { Ks... };
-  };
   // AES-128 test key: 2b7e...4f3c
   using MyKey = StaticKey<
       0x2B,0x7E,0x15,0x16, 0x28,0xAE,0xD2,0xA6,

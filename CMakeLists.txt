@@ -24,6 +24,7 @@ target_compile_options(cuda_common INTERFACE
   # Optional (uncomment if you want kernel line info in profiles):
   # $<$<COMPILE_LANGUAGE:CUDA>:-lineinfo>
 )
+target_compile_definitions(cuda_common INTERFACE USE_GENERATED_RK)
 
 # If you really want a global PTX fallback, uncomment:
 # set_property(TARGET cuda_common PROPERTY INTERFACE_COMPILE_OPTIONS
