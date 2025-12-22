@@ -74,3 +74,28 @@ python3 tools/verify_outputs.py \
 ## Notes
 - ShiftRows in the **main rounds** is handled implicitly by calling MixColumns with bytes `{0,5,10,15}`, `{4,9,14,3}`, `{8,13,2,7}`, `{12,1,6,11}`.  
 - Final round does SubBytes + ShiftRows only, then applies the last round key. A register-only permutation is used once.
+
+## Bruteforce Implementation (Educational)
+
+This repository includes AES-128 bruteforce implementations for educational purposes:
+
+- **Single GPU**: `./build/cuda-aes-bruteforce` (no MPI required)
+- **Multi-GPU/Node**: `./build/cuda-aes-bruteforce-mpi` (uses MPI for distribution)
+
+**See [BRUTEFORCE_KR.md](BRUTEFORCE_KR.md) for detailed documentation in Korean.**
+
+### Quick Start
+
+```bash
+# Generate test case
+python3 tools/gen_bruteforce_test.py
+
+# Run bruteforce (searches last 4 bytes of key)
+./build/cuda-aes-bruteforce \
+    00112233445566778899aabbccddeeff \
+    8df4e9aac5c7573a27d8d055d6e4d64b \
+    2b7e151628aed2a6abf71588
+```
+
+⚠️ **Warning**: Full AES-128 bruteforce (2^128 keys) is computationally infeasible. This demo searches only the last 4 bytes (2^32 keys) for educational purposes.
+

@@ -1,5 +1,8 @@
 cmake_minimum_required(VERSION 3.18)  # 3.18+ supports CMAKE_CUDA_ARCHITECTURES
-project(cuda_aes_bitslice LANGUAGES CXX CUDA)
+project(cuda_aes_bitslice LANGUAGES CXX CUDA C)
+
+# -------- Find MPI --------
+find_package(MPI REQUIRED)
 
 # -------- Language standards --------
 set(CMAKE_CXX_STANDARD 17)
@@ -85,3 +88,30 @@ if (DEFINED AES_KEY_HEX AND NOT "${AES_KEY_HEX}" STREQUAL "")
   target_compile_definitions(cuda-aes-full PRIVATE USE_GENERATED_RK=1)
   target_include_directories(cuda-aes-full PRIVATE "${CMAKE_BINARY_DIR}/include")
 endif()
+
+# ========== Single-GPU Bruteforce (No MPI) ==========
+add_executable(cuda-aes-bruteforce
+  src/aes_bruteforce_single.cu
+  src/aes_bruteforce_kernel.cu
+)
+set_target_properties(cuda-aes-bruteforce PROPERTIES 
+  CUDA_SEPARABLE_COMPILATION ON
+)
+target_link_libraries(cuda-aes-bruteforce PRIVATE cuda_common)
+
+# ========== MPI + CUDA Bruteforce ==========
+add_executable(cuda-aes-bruteforce-mpi
+  src/aes_bruteforce_mpi.cu
+  src/aes_bruteforce_kernel.cu
+)
+set_target_properties(cuda-aes-bruteforce-mpi PROPERTIES 
+  CUDA_SEPARABLE_COMPILATION ON
+  LINKER_LANGUAGE CXX
+)
+target_link_libraries(cuda-aes-bruteforce-mpi PRIVATE 
+  cuda_common
+  MPI::MPI_CXX
+)
+target_include_directories(cuda-aes-bruteforce-mpi PRIVATE 
+  ${MPI_CXX_INCLUDE_DIRS}
+)
